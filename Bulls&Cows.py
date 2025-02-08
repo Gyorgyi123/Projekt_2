@@ -63,7 +63,7 @@ Hi there!
 I've generated a random 4 digit number for you.
 Let's play a bulls and cows game.
 {'-' * 40}
-How? below are the rules:
+How? Below are the rules:
 Guesses a 4 digit number consisting of unique digits.
 After each guess, you receive feedback in the form of the number of "bulls" and "cows".
 A bull is a correct digit in the correct place.
@@ -98,20 +98,30 @@ So let's go and good luck.
                 game_length = end_time - start_time
                 game_durations.append(game_length)
                 print(f"""
+{'-' * 40}
 Congratulations!!!!! Your tip is correct. 
 It took you {len(all_tips)} shots and 
 {round(game_length)} seconds to find the right number!
+{'-' * 40}
                         """)
-                choice = input("""Do you want to play again? Press y.
+                choice = input(f"""
+{'-' * 40}                               
+Do you want to play again? Press y.
 Do you want to see your game statistics? Press s.
-Do you want to quit game? Press any other button.""")
+Do you want to quit game? Press any other button.
+{'-' * 40}                               
+                               """)
                 
                 if choice == "y" or choice == "Y":
                     play_game()
                 elif choice == "s" or choice == "S":
                     generate_statistics()
-                    choice_2 = input("""Do you wanna play again? Press y.
-Do you wanna quit? Press any other button.""")
+                    choice_2 = input(f"""
+{'-' * 40}
+Do you wanna play again? Press y.
+Do you wanna quit? Press any other button.
+{'-' * 40}
+""")
                     
                     if choice_2 == "y" or choice_2 == "Y":
                         play_game()
