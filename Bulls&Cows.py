@@ -13,16 +13,17 @@ generated = [] # list of generated number for each game
 
 
 def generate_unique_number():
-    """Generates a unique 4 digit number wich do not start with 0 and each numbers do not repeat.
+    """Generates a unique 4 digit number wich do not 
+    start with 0 and each numbers do not repeat.
     """
-    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    generated_number = random.sample(numbers, 4)
-    
-    if generated_number[0] == 0 or len(generated_number) > len(set(generated_number)):
+    first_num = random.sample(range(1, 10), 1)
+    remained_nums = random.sample(range(10), 3)
+    generated_number = first_num + remained_nums
+    if len(generated_number) > len(set(generated_number)):
         generate_unique_number()
     else:
         generated.append(generated_number)
-    return generated_number
+        return generated_number
 
 def evaluate_guess(user_tip, generated_number):
     """Evaluates the guess against the generated number and returns number of Bulls and Cows.
@@ -63,26 +64,17 @@ Hi there!
 I've generated a random 4 digit number for you.
 Let's play a bulls and cows game.
 {'-' * 40}
-How? Below are the rules:
-Guesses a 4 digit number consisting of unique digits.
-After each guess, you receive feedback in the form of the number of "bulls" and "cows".
-A bull is a correct digit in the correct place.
-A cow is a correct digit that is in my generated number, but in the wrong place.
-The goal is to guess the correct number with the fewest number of attempts.
-So let's go and good luck.
         """)
-    
+
     while True:
         print("-" * 40)
-        user_tip = input("Enter your guess:")
-        first_digit = user_tip[0]
-        
+        user_tip = input("Enter your guess:")     
         if not user_tip.isdigit():
             print("Invalid input. Please enter only numbers.")
             continue
         elif (len(user_tip) != 4) or \
                 (len(set(user_tip)) != 4) or \
-                (first_digit == "0"):
+                (user_tip[0] == "0"):
             print("Invalid input. Please read the rules again and enter a new number.")
         elif user_tip in all_tips:
             print("You already used this number. Please enter a new one.")
@@ -104,24 +96,20 @@ It took you {len(all_tips)} shots and
 {round(game_length)} seconds to find the right number!
 {'-' * 40}
                         """)
-                choice = input(f"""
-{'-' * 40}                               
+                choice = input(f"""{'-' * 40}                               
 Do you want to play again? Press y.
 Do you want to see your game statistics? Press s.
 Do you want to quit game? Press any other button.
-{'-' * 40}                               
-                               """)
+{'-' * 40}""")
                 
                 if choice == "y" or choice == "Y":
                     play_game()
                 elif choice == "s" or choice == "S":
                     generate_statistics()
-                    choice_2 = input(f"""
-{'-' * 40}
+                    choice_2 = input(f"""{'-' * 40}
 Do you wanna play again? Press y.
 Do you wanna quit? Press any other button.
-{'-' * 40}
-""")
+{'-' * 40}""")
                     
                     if choice_2 == "y" or choice_2 == "Y":
                         play_game()
