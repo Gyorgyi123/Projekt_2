@@ -11,19 +11,41 @@ num_of_hits = [] # number of hits for each game
 game_durations = [] # duration of each game in seconds
 generated = [] # list of generated number for each game
 
+def main():
+    """Plays the game with choices after each game.
+    """    
+    run_game = True
+    play_game()
+
+    while run_game == True:
+        choice = input(f"""{'-' * 40}                               
+Do you want to play again? Press y.
+Do you want to see your game statistics? Press s.
+Do you want to quit game? Press any other button.
+{'-' * 40}""")
+        if choice.upper() == "Y":
+            print("OK")
+            play_game()
+        elif choice.upper() == "S":
+            generate_statistics()
+        else:
+            print("Thank you for your game. See you soon.")
+            run_game = False
 
 def generate_unique_number():
     """Generates a unique 4 digit number wich do not 
     start with 0 and each numbers do not repeat.
     """
-    first_num = random.sample(range(1, 10), 1)
-    remained_nums = random.sample(range(10), 3)
-    generated_number = first_num + remained_nums
-    if len(generated_number) > len(set(generated_number)):
-        generate_unique_number()
-    else:
-        generated.append(generated_number)
-        return generated_number
+    unique = False
+    while unique == False:
+        first_num = random.sample(range(1, 10), 1) # the first digit in range 1 to 9
+        remained_nums = random.sample(range(10), 3) # the remaining 3 digits in range 0 to 9
+        generated_number = first_num + remained_nums
+
+        if len(generated_number) == len(set(generated_number)):
+            generated.append(generated_number)            
+            unique = True
+            return generated_number
 
 def evaluate_guess(user_tip, generated_number):
     """Evaluates the guess against the generated number and returns number of Bulls and Cows.
@@ -53,7 +75,7 @@ the longest {round(max(game_durations))}.
               """)
 
 def play_game():
-    """Plays the Bulls and Cows game.
+    """Defines the Bulls and Cows game.
     """
     start_time = time.time()
     all_tips = []
@@ -65,10 +87,10 @@ I've generated a random 4 digit number for you.
 Let's play a bulls and cows game.
 {'-' * 40}
         """)
-
+    
     while True:
         print("-" * 40)
-        user_tip = input("Enter your guess:")     
+        user_tip = input("Enter your guess:")
         if not user_tip.isdigit():
             print("Invalid input. Please enter only numbers.")
             continue
@@ -96,29 +118,7 @@ It took you {len(all_tips)} shots and
 {round(game_length)} seconds to find the right number!
 {'-' * 40}
                         """)
-                choice = input(f"""{'-' * 40}                               
-Do you want to play again? Press y.
-Do you want to see your game statistics? Press s.
-Do you want to quit game? Press any other button.
-{'-' * 40}""")
-                
-                if choice == "y" or choice == "Y":
-                    play_game()
-                elif choice == "s" or choice == "S":
-                    generate_statistics()
-                    choice_2 = input(f"""{'-' * 40}
-Do you wanna play again? Press y.
-Do you wanna quit? Press any other button.
-{'-' * 40}""")
-                    
-                    if choice_2 == "y" or choice_2 == "Y":
-                        play_game()
-                    else:
-                        print("Thank you for your game. See you soon.")
-                        break
-                else:
-                    print("Thank you for your game. See you soon.")
-                    break
+                break
 
 if __name__ == "__main__":
-    play_game()
+    main()
