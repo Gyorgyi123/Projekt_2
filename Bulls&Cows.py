@@ -18,11 +18,11 @@ def main():
     play_game()
 
     while run_game == True:
-        choice = input(f"""{'-' * 40}                               
-Do you want to play again? Press y.
-Do you want to see your game statistics? Press s.
-Do you want to quit game? Press any other button.
-{'-' * 40}""")
+        choice = input(f"{'-' * 40}\n"                             
+                            "Do you want to play again? Press y.\n"
+                            "Do you want to see your game statistics? Press s.\n"
+                            "Do you want to quit game? Press any other button.\n"
+                            f"{'-' * 40}")
         if choice.upper() == "Y":
             print("OK")
             play_game()
@@ -64,15 +64,13 @@ def evaluate_guess(user_tip, generated_number):
 def generate_statistics():
     """Generates statistics of all games in this running program.
     """
-    print(f"""
-Your game statistics are:
-You played {len(num_of_hits)} games.
-The shortest game you took {min(num_of_hits)} shots, 
-the longest {max(num_of_hits)}.
-You played {round(sum(game_durations))} seconds.
-The shortest game you took {round(min(game_durations))} seconds, 
-the longest {round(max(game_durations))}.
-              """)
+    print("Your game statistics are:\n"
+        f"You played {len(num_of_hits)} games.\n"
+        f"The shortest game you took {min(num_of_hits)} shots,\n" 
+        f"the longest {max(num_of_hits)}.\n"
+        f"You played {round(sum(game_durations))} seconds.\n"
+        f"The shortest game you took {round(min(game_durations))} seconds,\n"
+        f"the longest {round(max(game_durations))}.")
 
 def play_game():
     """Defines the Bulls and Cows game.
@@ -80,13 +78,11 @@ def play_game():
     start_time = time.time()
     all_tips = []
     generated_number = generate_unique_number()
-    print(f"""
-Hi there!
-{'-' * 40}
-I've generated a random 4 digit number for you.
-Let's play a bulls and cows game.
-{'-' * 40}
-        """)
+    print("Hi there!\n"
+        f"{'-' * 40}\n"
+        "I've generated a random 4 digit number for you.\n"
+        "Let's play a bulls and cows game.\n"
+        f"{'-' * 40}")
     
     while True:
         print("-" * 40)
@@ -104,20 +100,28 @@ Let's play a bulls and cows game.
         else:
             all_tips.append(user_tip)
             bulls, cows = evaluate_guess(user_tip, generated_number)
-            print(f"""In your tip are {bulls} Bulls and {cows} Cows.""")
+            
+            if bulls ==1:
+                bull_or_bulls = "Bull"
+            else:
+                bull_or_bulls = "Bulls"
+
+            if cows == 1:
+                cow_or_cows = "Cow"
+            else:
+                cow_or_cows = "Cows"
+            print(f"""In your tip are {bulls} {bull_or_bulls} and {cows} {cow_or_cows}.""")
             
             if bulls == 4:
                 end_time = time.time()
                 num_of_hits.append(len(all_tips))
                 game_length = end_time - start_time
                 game_durations.append(game_length)
-                print(f"""
-{'-' * 40}
-Congratulations!!!!! Your tip is correct. 
-It took you {len(all_tips)} shots and 
-{round(game_length)} seconds to find the right number!
-{'-' * 40}
-                        """)
+                print(f"{'-' * 40}\n"
+                    "Congratulations!!!!! Your tip is correct.\n"
+                    f"It took you {len(all_tips)} shots and\n"
+                    f"{round(game_length)} seconds to find the right number!\n"
+                    f"{'-' * 40}")
                 break
 
 if __name__ == "__main__":
